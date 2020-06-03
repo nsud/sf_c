@@ -32,10 +32,12 @@ jQuery.prototype.class = function(name){
 	this.each(element => element.className = name)
   return this;
 }
+
 jQuery.prototype.html = function (name = this.elements["0"].innerHTML){
 	this.each(element => element.innerHTML = name);
 	return this;
 }
+
 jQuery.prototype.text = function (text) {
 	this.each(element => element.innerText = text);
 	return this;
