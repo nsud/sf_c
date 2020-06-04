@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>С1</title>
+	<!--<link rel="stylesheet" type="text/css" href="style.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script async src="script.js"></script>
+</head>
+<body>
+    <div class="countdown jumbotron mx-auto col-4" style='width:80%;min-width:max-content;'>
+    <h1 class="countdown-title d-flex justify-content-center">Countdown Clock</h1>
+        <hr><br>
+    <section class="row d-flex justify-content-around">
+      <div class="w-25 input-group countdown-number">
+          <input type="number" min="00" max="59" class="form-control minutes countdown-time" value="00">
+
+
+      </div>
+      <div class="w-25 input-group countdown-number">
+          <input type="number" min="00" max="59" class="form-control seconds countdown-time" value="">
+
+      </div>
+
+    </section>
+        <div class="row d-flex justify-content-around">
+            <div class="input-group-prepend">
+                  <label class="countdown-text badge">Minutes</label>
+            </div>
+            <div class="input-group-prepend">
+                <label class="countdown-text badge">Seconds</label>
+            </div>
+        </div>
+<br>
+    <div class="d-flex justify-content-around">
+      <button type="button" class="btn btn-primary plus">Plus</button>
+      <button type="button" class="btn btn-primary minus">Minus</button>
+      <button type="button" class="btn btn-primary start">Start</button>
+    </div>
+</div>
+    <br>
+    <div class="row">
+    <div class="message mx-auto col-4" style='width:80%;min-width:max-content;'>
+    </div>
+    <div class="restart-div mx-auto col-3">
+        <button type="button" class="btn btn-primary restart" style="display:none;">Restart</button>
+    </div>
+        </div>
+</body>
