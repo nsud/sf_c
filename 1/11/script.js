@@ -6,6 +6,8 @@ const message = document.querySelector('.message');
 const plus = document.querySelector('.plus');
 const minus = document.querySelector('.minus');
 const start = document.querySelector('.start');
+const stop = document.querySelector('.stop');
+const pause = document.querySelector('.pause');
 
 const restartd = document.querySelector('.restart-div');
 const restart = document.querySelector('.restart');
@@ -16,13 +18,14 @@ let countMin = 0;
 let timeinterval = null;
 let total = 0;
 
+/* Проверка введенных пользователем данных */
 const update = () => {
 if (minutes.value != '00'){
-    countMin += minutes.value
-};
+    countMin = minutes.value
+    }
 if (seconds.value != '00'){
-    countSec += seconds.value
-};
+    countSec = seconds.value
+    }
 }
 
 const updateText = () =>{
@@ -32,35 +35,49 @@ const updateText = () =>{
 
 updateText();
 
+/* Сообщение об окончании работы таймера */
+const banner = () => {
+      timer.style.display = 'none';
+      message.innerHTML = '<p class="alert alert-primary" role="alert" >I am done...</p>'
+      restart.style.display = "block";
+      }
+
+const pauseTimer = () => {
+  if (timeinterval) {
+    clearInterval(timeinterval);
+    timeinterval = null;
+  }
+}
+
+/* Основная работа таймера, запускаемого кнопкой Старт */
 const countDown = () => {
-    message.innerHTML = ""
+    /* убирает баннер о сделанной работе */
+    message.innerHTML = "";
+    let total = seconds.value + minutes.value * 60;
 
-    if (!timeinterval) {
-      let total = seconds.value + minutes.value * 60;
-      const timeinterval = setTimeout(countDown, 1000);
-
-      if (total <= 0) {
-        clearInterval(timeinterval);
-        timer.style.display = 'none';
-        message.innerHTML = '<p class="alert alert-primary" role="alert" >I am done...</p>'
-        restart.style.display = "block";
-      }
-      if(countSec > 0) countSec--;
-      else{
-      if (countMin > 0) {
-        countSec = 59;
-        countMin--;
-        }
-      else{
-        clearInterval(timeinterval)
-        }
-      }
-      updateText();
+    if (!timeinterval && total > 0) {
+        timeinterval = setInterval(() => {
+              if (total <= 0) {
+                clearInterval(timeinterval);
+                banner();
+              }
+              if(countSec > 0) countSec--;
+              else{
+                  if (countMin > 0) {
+                    countSec = 59;
+                    countMin--;
+                    }
+                  else{
+                    clearInterval(timeinterval);
+                    banner();
+                    }
+              }
+          updateText();
+        }, 1000);
     }
 };
 
-
-
+/* работа при нажатиях различных кнопок */
 plus.addEventListener('click', () =>{
   if(countSec < 59) ++countSec;
   else{
@@ -86,10 +103,14 @@ minus.addEventListener('click', () =>{
 
 start.addEventListener('click', () => {
       update();
-      check(countSec)
-      check(countMin)
 	  countDown();
-	  time = 0;
+});
+
+stop.addEventListener('click', () => {
+      pauseTimer();
+	  seconds.value = 0;
+	  minutes.value = 0;
+	  update();
       updateText();
 });
 
@@ -101,3 +122,5 @@ restart.addEventListener('click', () => {
     restart.style.display = 'none';
     timer.style.display = "block";
 });
+
+pause.addEventListener('click', pauseTimer);
